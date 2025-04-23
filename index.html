@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,7 @@
     body {
       margin: 0;
       font-family: Helvetica Neue, sans-serif;
-      background-color: #1e1e1e;
+      background-color: #5a3e2b;
       color: white;
     }
     .bookshelf {
@@ -51,13 +50,15 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       z-index: 9999;
     }
     .pdf-viewer iframe {
-      width: 90%;
-      height: 90%;
-      border: none;
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
     }
     .close-btn {
       position: absolute;
@@ -70,7 +71,7 @@
   </style>
 </head>
 <body>
-  <h1 style="text-align: center; margin-top: 20px;">Saturn & Anki’s Bookshelf</h1>
+  <h1 style="text-align: center; margin-top: 18px;">Saturn & Anki’s Bookshelf</h1>
   <div class="bookshelf" id="bookshelf"></div>
   <div class="pdf-viewer" id="pdfViewer">
     <div class="close-btn" onclick="closePDF()">&times;</div>
@@ -81,37 +82,37 @@
       {
         title: "The Power of Now",
         cover: "https://covers.openlibrary.org/b/isbn/1577314808-L.jpg",
-        pdf: "pdfs/The Power of Now -- Tolle, Eckhart -- 0 -- 86ba8302530e2acd3767fb9df34cdb9c -- AnnaΓÇÖs Archive.pdf"
+        pdf: "pdfs/The Power of Now.pdf"
       },
       {
         title: "The Creative Act",
         cover: "https://covers.shakespeareandcompany.com/97818388/9781838858636.jpg",
-        pdf: "pdfs/The Creative Act_ A way of Being_ A Way of Being -- Rick Rubin -- 2023 Revised and Analyzed, 2023 -- Penguin Publishing Group; Penguin Press -- 9780593652886 -- 1fade2c2f666bb60e0a4cad0a010c84d -- AnnaΓÇÖs Archive.pdf"
+        pdf: "pdfs/The Creative Act.pdf"
       },
       {
         title: "The 7 Habits of Highly Effective People",
         cover: "https://covers.openlibrary.org/b/isbn/0743269519-L.jpg",
-        pdf: "pdfs/The 7 Habits of Highly Effective People -- Covey, Stephen R -- 2004 -- Free Press -- 9780795309199 -- e1d8d80573dcc73d149cdb08284413c3 -- AnnaΓÇÖs Archive.pdf"
+        pdf: "pdfs/The 7 Habits of Highly Effective People.pdf"
       },
       {
         title: "Mental Chemistry",
         cover: "https://m.media-amazon.com/images/I/61TB4SD55uL._AC_UF1000,1000_QL80_.jpg",
-        pdf: "pdfs/Mental Chemistry -- Charles F_ Haanel -- 2011 -- Kallisti Publishing -- 1eb8f64857c3067a892d590d9b7a4750 -- AnnaΓÇÖs Archive.pdf"
+        pdf: "pdfs/Mental Chemistry.pdf"
       },
       {
         title: "The Richest Man in Babylon",
         cover: "https://covers.openlibrary.org/b/isbn/0451205367-L.jpg",
-        pdf: "pdfs/The Richest Man in Babylon_ The Original 1926 Edition -- Clason, George S_ -- 2024 -- Biblioteq -- 08f8714bc3759d7c88b941c4cf155bad -- AnnaΓÇÖs Archive.pdf"
+        pdf: "pdfs/The Richest Man in Babylon.pdf"
       },
       {
         title: "The Science of Getting Rich",
         cover: "https://i.ebayimg.com/images/g/cHkAAOSwTTlgAERy/s-l1200.jpg",
-        pdf: "pdfs/The science of getting rich_ [your master key to success] -- by Wallace D_ Wattles -- Audio, 2007 -- Thinking Stuff, LLC -- 9780984064625 -- eeb674c2775e56f2ccb41d5924f75721 -- AnnaΓÇÖs Archive.pdf"
+        pdf: "pdfs/The science of getting rich.pdf"
       },
       {
         title: "The Master Key System",
         cover: "https://m.media-amazon.com/images/I/61Kr6CqMGZL._AC_UF1000,1000_QL80_.jpg",
-        pdf: "pdfs/The Master Key System_ 2nd Edition_ Open the Secret to -- Charles F_ Haanel & Donald Gordon Carty -- 209333251e262a055dbe6a799c0a0556 -- AnnaΓÇÖs Archive.pdf"
+        pdf: "pdfs/The Master Key System.pdf"
       }
     ];
 
@@ -125,10 +126,15 @@
       `).join('');
     }
 
-    function openPDF(link) {
+   function openPDF(link) {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.open(link, '_blank');
+  } else {
       document.getElementById('pdfViewer').style.display = 'flex';
       document.getElementById('pdfFrame').src = link;
-    }
+  }
+}
 
     function closePDF() {
       document.getElementById('pdfViewer').style.display = 'none';
