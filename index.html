@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookshelf</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      background: #1e1e1e;
+      color: white;
+    }
+    .top-bar {
+      padding: 10px;
+      text-align: center;
+    }
+    .search-box {
+      width: 60%;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .bookshelf {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      gap: 20px;
+    }
+    .book-item {
+      width: 120px;
+      text-align: center;
+    }
+    .book {
+      width: 100%;
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      background-color: #444;
+    }
+    .book-title {
+      font-size: 0.8rem;
+    }
+    .drop-zone {
+      border: 2px dashed #ccc;
+      padding: 30px;
+      text-align: center;
+      margin: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <input type="text" class="search-box" id="searchBox" placeholder="Search books..." />
+  </div>
+
+  <div class="drop-zone" id="dropZone">📥 Drag and drop your PDFs here</div>
+
+  <div class="bookshelf" id="bookshelf"></div>
+
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const shelf = document.getElementById('bookshelf');
+    const searchBox = document.getElementById('searchBox');
+    let books = [];
+
+    function renderBooks(list) {
+      shelf.innerHTML = '';
+      list.forEach(book => {
+        const item = document.createElement('div');
+        item.className = 'book-item';
+        item.innerHTML = `
+          <div class="book" onclick="openPDF('${book.url}')"></div>
+          <div class="book-title">${book.title}</div>
+        `;
+        shelf.appendChild(item);
+      });
+    }
+
+    function openPDF(url) {
+      const viewerURL = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(url)}`;
+      window.open(viewerURL, '_blank');
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      for (let file of files) {
+        if (file.type === "application/pdf") {
+          const url = URL.createObjectURL(file);
+          books.push({ title: file.name.replace('.pdf',''), url });
+        }
+      }
+      renderBooks(books);
+    }
+
+    dropZone.addEventListener("dragover", e => e.preventDefault());
+    dropZone.addEventListener("drop", handleDrop);
+
+    searchBox.addEventListener("input", () => {
+      const term = searchBox.value.toLowerCase();
+      renderBooks(books.filter(b => b.title.toLowerCase().includes(term)));
+    });
+
+    renderBooks(books);
+  </script>
+</body>
+</html>
