@@ -126,10 +126,15 @@
       `).join('');
     }
 
-    function openPDF(link) {
+   function openPDF(link) {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.open(link, '_blank');
+  } else {
       document.getElementById('pdfViewer').style.display = 'flex';
       document.getElementById('pdfFrame').src = link;
-    }
+  }
+}
 
     function closePDF() {
       document.getElementById('pdfViewer').style.display = 'none';
