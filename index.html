@@ -8,6 +8,18 @@
   <meta name="theme-color" content="#2a1810" />
   <title>Saturn's Bookshelf</title>
 
+  <!-- Open Graph (Facebook, iMessage, Slack, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Saturn's Bookshelf" />
+  <meta property="og:site_name" content="Saturn's Bookshelf" />
+  <meta property="og:description" content="A small collection of books worth reading." />
+  <meta property="og:url" content="https://books222read.netlify.app/" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Saturn's Bookshelf" />
+  <meta name="twitter:description" content="A small collection of books worth reading." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -64,13 +76,6 @@
       text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
     }
 
-    .tagline {
-      color: var(--ink-dim);
-      font-size: 0.95rem;
-      font-style: italic;
-      margin: 0;
-    }
-
     main {
       max-width: 1100px;
       margin: 0 auto;
@@ -82,12 +87,7 @@
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 1.75rem 1.5rem;
       padding-top: 1rem;
-      position: relative;
     }
-
-    /* subtle wooden shelf line under each row */
-    .bookshelf::before,
-    .bookshelf::after { content: ''; }
 
     .book {
       all: unset;
@@ -210,7 +210,6 @@
 <body>
   <header>
     <h1>Saturn's Bookshelf</h1>
-    <p class="tagline">A small collection of books worth reading.</p>
   </header>
 
   <main>
